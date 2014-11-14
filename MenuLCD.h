@@ -19,6 +19,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 */
 
 #include <LiquidCrystal.h>
+#include "MenuEntry.h"
+#include "MenuIntHelper.h"
+
 
 #ifndef MenuLCD_H
 
@@ -52,6 +55,40 @@ class MenuLCD
   int m_LCDD7;
   int m_characters;
   int m_lines;
+};
+
+enum MENU_ACTION { MENU_ACTION_UP, MENU_ACTION_DOWN, MENU_ACTION_SELECT, MENU_ACTION_BACK };
+
+class MenuManager
+{
+  public:
+  MenuManager(MenuLCD* pMenuLCD);
+  bool addMenuRoot( MenuEntry * p_menuEntry);
+  MenuEntry * getMenuRoot();
+  void DrawMenu();
+  void DoMenuAction( MENU_ACTION action );
+  void MenuUp();
+  void MenuDown();
+  void MenuSelect();
+  void MenuBack();
+  void addChild( MenuEntry * p_menuEntry );    
+  void addSibling( MenuEntry * p_menuEntry );  
+  void SelectRoot();
+  void DoIntInput( int iMin, int iMax, int iStart, int iSteps, char **label, int iLabelLines, int *pInt );
+  void DrawInputRow( char *pString );
+
+  void WipeMenu( MenuLCD::Direction dir);
+
+
+  
+  private:
+  MenuEntry* m_pRootMenuEntry;
+  MenuEntry* m_pCurrentMenuEntry;
+  MenuLCD* m_pMenuLCD;
+  unsigned int m_fDoingIntInput;
+  MenuIntHelper *m_pMenuIntHelper;
+  int m_iIntLine;
+  int *m_pInt;
 };
 
 #endif

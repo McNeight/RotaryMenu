@@ -19,9 +19,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 */
 
 
-#include <arduino.h>
-#include "MenuEntry.h"
-#include "MenuManager.h"
+#include <Arduino.h>
+#include "MenuLCD.h"
 
 MenuEntry::MenuEntry( char * menuText, void * userData, MENU_ACTION_CALLBACK_FUNC func)
 {
